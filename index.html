@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maze Generator - Make Maze Quiz [FREE]</title>
+    <meta
+      name="description"
+      content="Are you looking for a Maze Generator online? If yes, you're in luck because we have a free tool to make mazes for you."
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/img/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/img/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="flex justify-between item-center">
+        <a href="mazegenerator.org">
+          <div class="text-2xl">Maze Generator</div>
+        </a>
+        <nav>
+          <img class="menu" src="/img/menu.svg" />
+          <ul class="flex gap-2 list-none menu-links not-ul">
+            <li>
+              <a
+                class="text-slate-900 text-decoration-none"
+                href="mazegenerator.org"
+                >Home</a
+              >
+            </li>
+            <!-- <li>
+              <a class="text-slate-900 text-decoration-none" href="/">About</a>
+            </li> -->
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section>
+        <div class="controls">
+          <div class="basic-controls">
+            <p class="input-section not-p">
+              <input id="wall-size" type="number" name="" value="10" min="1" />
+              <label for="wall-size">Thickness</label>
+            </p>
+
+            <p class="input-section not-p">
+              <input
+                id="remove_walls"
+                type="number"
+                name="remove_walls"
+                value="0"
+                min="0"
+                max="200"
+              />
+              <!-- <p class="desc">
+                The maze can be solved in multiple ways if you remove maze walls.
+                (maximum <span>300</span> walls)<br />
+              </p> -->
+              <label for="remove_walls">Remove Walls</label>
+            </p>
+
+            <p class="input-section not-p">
+              <input
+                id="width"
+                type="number"
+                name="width"
+                value="20"
+                min="3"
+                max="200"
+              />
+              <label for="width">Columns</label>
+            </p>
+            <p class="input-section not-p">
+              <input
+                id="height"
+                type="number"
+                name="height"
+                value="20"
+                min="3"
+                max="200"
+              />
+              <label for="height">Rows</label>
+            </p>
+            <p class="input-section not-p">
+              <select id="entry" name="entry">
+                <option value="">None</option>
+                <option value="diagonal" selected="selected">Diagonal</option>
+                <option value="horizontal">Left and Right</option>
+                <option value="vertical">Top and Bottom</option>
+              </select>
+              <label for="entry">Maze Entries</label>
+            </p>
+            <p class="input-section not-p">
+              <select id="bias" name="bias">
+                <option value="">None</option>
+                <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+              </select>
+              <label for="bias">Bias</label>
+            </p>
+          </div>
+
+          <div class="style-controls">
+            <div class="color-section">
+              <div class="color-picker" data-default="#ffffff">
+                <input
+                  type="text"
+                  class=""
+                  id="backgroundColor"
+                  name="backgroundColor"
+                  value="#ffffff"
+                />
+                <div
+                  class="color-sample"
+                  style="background-color: #ffffff"
+                ></div>
+              </div>
+
+              <label for="backgroundColor">Background Color</label>
+            </div>
+
+            <div class="color-section">
+              <div class="color-picker" data-default="#000000">
+                <input
+                  type="text"
+                  class=""
+                  id="color"
+                  name="color"
+                  value="#000000"
+                />
+                <div
+                  class="color-sample"
+                  style="background-color: #000000"
+                ></div>
+              </div>
+
+              <label for="color">Maze Color</label>
+            </div>
+
+            <div class="color-section">
+              <div class="color-picker" data-default="#cc3737">
+                <input
+                  type="text"
+                  class=""
+                  id="solveColor"
+                  name="solveColor"
+                  value="#cc3737"
+                  pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+                />
+                <div
+                  class="color-sample"
+                  style="background-color: #cc3737"
+                ></div>
+              </div>
+
+              <label for="solveColor">Solve Color</label>
+            </div>
+          </div>
+
+          <div id="generate">
+            <div class="btn-sections">
+              <button id="create-maze" onclick="initMaze();" class="hide">
+                Generate Maze
+              </button>
+              <button id="solve" onclick="initSolve();" class="hide">
+                Solve Maze
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="generated-maze">
+        <canvas id="maze"></canvas>
+        <a href="" class="hide" id="download">Download</a>
+      </section>
+
+      <!-- Article Section -->
+
+      <article class="article">
+        <p>
+          Are you looking for a Maze Generator online? If yes, you're in luck
+          because we have a free tool to make mazes for you. You can download
+          the maze as an image for free.
+        </p>
+        <p>
+          Before moving directly to the next steps and process of how can you
+          use this tool first let see what is exactly a maze quiz.
+        </p>
+        <h2>What is a Maze?</h2>
+        <p>
+          A Maze Quiz can be used for fun or educational purposes. It challenges
+          participants to navigate through a maze by answering questions
+          correctly.
+        </p>
+        <p>
+          This type of quiz combines
+          <a
+            href="https://en.wikipedia.org/wiki/Problem_solving"
+            target="_blank"
+            >problem-solving skills</a
+          >
+          with knowledge retention. It can be an engaging way to reinforce
+          learning in history, science, or mathematics.
+        </p>
+        <p>
+          Maze quizzes can also serve as entertainment at events or as part of
+          team-building exercises.
+        </p>
+        <p>
+          If you have an audience and want to share maze quizzes
+          regularly—whether daily, weekly, or monthly—you can utilize our Maze
+          Generator tool.
+        </p>
+        <p>
+          It allows you to create new maze challenges to engage your audience
+          consistently.
+        </p>
+        <p>
+          Our tool creates new and different mazes each time you use it,
+          ensuring each one is unique. Plus, you have the option to receive the
+          solution for the maze quiz along with the image or in another format.
+        </p>
+        <h2>How to use Maze Generator?</h2>
+        <p>
+          Using our Maze Generator tool is an easy task, to make it way more
+          easy to use I have mentioned the complete process below to use this
+          tool.
+        </p>
+        <strong>Here's the step-by-step process:</strong>
+        <ol>
+          <li>Visit our website and navigate to the Maze Generator tool.</li>
+          <li>
+            Choose the settings for your maze, such as size, complexity, and any
+            additional features you want.
+          </li>
+          <li>Click the "Generate Maze" button.</li>
+          <li>Wait for the tool to generate a unique maze for you.</li>
+          <li>
+            Once the maze is ready, you can download it as an image or in
+            another preferred format.
+          </li>
+          <li>Optionally, you can also download the solution for the maze.</li>
+          <li>Share the maze with your audience or use it as desired.</li>
+        </ol>
+        <p>
+          That's it! Enjoy creating and sharing maze quizzes effortlessly with
+          our tool.
+        </p>
+        <h2>Key Features of Our Maze Generator</h2>
+        <h3>Access Without Sign-In or Authentication</h3>
+        <p>
+          One great feature of our Maze Generator tool is that you can create
+          mazes without having to sign in or create an account.
+        </p>
+        <p>
+          This is beneficial because it saves you time; there's no need to go
+          through the sign-in process to use our site.
+        </p>
+        <p>
+          Unlike many similar tools that require signing in, which can pose
+          risks as your credentials and data are stored on their servers, our
+          tool operates without this requirement.
+        </p>
+        <h3>Personalize Maze Settings</h3>
+        <p>
+          Not satisfied with the default maze appearance? No problem! Our tool
+          offers an option to customize the maze according to your preferences.
+        </p>
+        <p>
+          You can adjust various elements such as size, complexity, wall color,
+          background color, solved color, and more to suit your needs.
+        </p>
+        <p>
+          You can utilize this feature to customize the appearance of the maze
+          according to your preferences for social media posts, websites, books,
+          or wherever you intend to use it.
+        </p>
+        <h3>Customize Maze Color</h3>
+        <p>
+          Customizing the maze color is beneficial because, as mentioned
+          earlier, it allows you to align the maze with the theme of your social
+          media, website, or book.
+        </p>
+        <p>
+          By default, we've included a collection of popular and well-balanced
+          colors for your convenience. Simply click on the color you prefer to
+          apply to the maze.
+        </p>
+        <p>
+          However, if you wish to use your own custom color, you can enter the
+          color hex code into the input field to change the color accordingly.
+        </p>
+        <h3>Retrieve Maze Solution</h3>
+        <p>
+          If you also need the solution for the maze you just generated, you're
+          in luck! Now, with just one click, you can access the solution for the
+          current maze.
+        </p>
+        <p>
+          Once the solution is revealed, you can save it as a PNG image on your
+          device. This feature is particularly helpful if you encounter a
+          challenging maze quiz that you're unable to solve on your own.
+        </p>
+        <h3>Save the Maze</h3>
+        <p>
+          The last and most important feature is being able to save the maze as
+          a PNG image directly to your device.
+        </p>
+        <p>
+          Once you're happy with the maze you made, just click on "Download
+          Image" to get it on your device.
+        </p>
+        <p>
+          You don't need to pay for a premium monthly subscription or a paid
+          plan to download the maze. It's totally free to save it on your
+          device.
+        </p>
+        <h2>Maze Generator FAQs</h2>
+        <h3>What is a Maze Generator tool?</h3>
+        <p>
+          A Maze Generator tool is an online tool that creates mazes
+          automatically based on user-defined parameters, such as size,
+          complexity, and customization options.
+        </p>
+        <h3>How does the Maze Generator tool work?</h3>
+        <p>
+          The tool uses algorithms to generate mazes based on the user's
+          specifications. It creates paths through a grid while ensuring there
+          is only one solution.
+        </p>
+        <h3>Is the Maze Generator tool free to use?</h3>
+        <p>
+          Yes, the Maze Generator tool is typically free to use. Users can
+          generate mazes and customize them without any cost.
+        </p>
+        <h3>Can I customize the mazes generated by the tool?</h3>
+        <p>
+          Yes, Our Maze Generator tools offer customization options such as
+          adjusting maze size, complexity, colors, and more.
+        </p>
+        <h3>Can I download the mazes generated by the tool?</h3>
+        <p>
+          Yes, These Maze Generator tools allow you to download the generated
+          mazes as images or in other formats for offline use or sharing.
+        </p>
+        <h3>
+          Are there any limitations on the number of mazes I can generate?
+        </h3>
+        <p>
+          This depends on the specific tool. Some Maze Generator tools may have
+          limitations on the number of mazes you can generate in a certain time
+          period or may offer unlimited use.
+        </p>
+        <h3>What platforms are supported by the Maze Generator tool?</h3>
+        <p>
+          Most Maze Generator tools are web-based and can be accessed through
+          internet browsers on various devices, including computers, tablets,
+          and smartphones.
+        </p>
+        <h3>Is there a solution provided for the mazes generated?</h3>
+        <p>
+          Some Maze Generator tools offer the option to reveal the solution to
+          the generated maze, which can be useful for you if you want to check
+          their solutions or for educational purposes.
+        </p>
+        <h3>Is the Maze Generator tool safe to use?</h3>
+        <p>
+          Maze Generator tools are safe to use. However, it's essential to
+          ensure that you're using a reputable tool from a trusted source to
+          avoid any potential security risks.
+        </p>
+        <h3>Can I share the mazes generated by the tool with others?</h3>
+        <p>
+          Yes, you can typically share the mazes generated by the tool with
+          others through various means, such as social media, email, or
+          messaging apps.
+        </p>
+        <h2>Final Words</h2>
+        <p>
+          Right now we only offer simple mazes but in the upcoming months you
+          can also able to download different maze shapes such as Circular,
+          Triangular, and Hexagonal so if you want to use all these different
+          shapes in the future then be sure to bookmark this page in stay
+          updated.
+        </p>
+        <p>
+          If you're happy with our tool, we encourage you to share it with your
+          friends so they can enjoy solving maze quizzes too!
+        </p>
+        <p>
+          Additionally, if you have any suggestions or feedback on how we can
+          improve our tool, please let us know.
+        </p>
+        <p>
+          We're committed to making enhancements based on user input to provide
+          the best possible experience for everyone.
+        </p>
+      </article>
+
+      <noscript>
+        <p>
+          Sorry... this site requires JavaScript to generate a maze. Please
+          enable it in your browser
+        </p>
+      </noscript>
+      <script type="text/javascript">
+        const createMazeButton = document.getElementById("create-maze");
+        createMazeButton.classList.toggle("hide");
+      </script>
+    </main>
+
+    <footer>
+      <p>
+        &copy; 2024 <a href="mazegenerator.org">MazeGenerator.org</a>. All
+        rights reserved.
+      </p>
+      <p></p>
+    </footer>
+    <script type="text/javascript" src="src/globals.js"></script>
+    <script type="text/javascript" src="src/utils.js"></script>
+    <script type="text/javascript" src="src/entries.js"></script>
+    <script type="text/javascript" src="src/maze.js"></script>
+    <script type="text/javascript" src="src/solver.js"></script>
+    <script type="text/javascript" src="src/app.js"></script>
+    <script type="text/javascript" src="src/human-colours-en-gb.js"></script>
+    <script type="text/javascript" src="src/color-picker.js"></script>
+  </body>
+</html>
