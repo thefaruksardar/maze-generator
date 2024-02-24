@@ -8,6 +8,11 @@ body {
   margin: 0;
   background-color: #f8fafc !important;
 }
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+}
 h1:not(.not-h1) {
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
